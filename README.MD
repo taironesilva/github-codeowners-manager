@@ -1,91 +1,107 @@
-Aqui está o arquivo completo já formatado:
-
-markdown
 # 🚀 GitHub CODEOWNERS Manager
 
 ## 📋 Sobre o Projeto
-O **GitHub CODEOWNERS Manager** é uma ferramenta em **Node.js** que automatiza a gestão de arquivos `CODEOWNERS` em repositórios GitHub.  
-Ele valida, verifica e cria automaticamente arquivos via Pull Requests, garantindo conformidade com as políticas de propriedade de código.
+O **GitHub CODEOWNERS Manager** é uma ferramenta em **Node.js** para automatizar a criação e validação de arquivos `CODEOWNERS` em repositórios GitHub.
+
+Ele valida arquivos de entrada, verifica repositórios, identifica necessidade de criação de `CODEOWNERS` e abre Pull Requests quando necessário.
 
 ---
 
 ## 🎯 Principais Funcionalidades
-- ✅ **Validação de repositórios** — Filtra por sigla e tipo de plataforma  
-- ✅ **Verificação automática** — Checa existência e conteúdo do CODEOWNERS  
-- ✅ **Criação inteligente** — Cria CODEOWNERS via PR quando necessário  
-- ✅ **Validação de conteúdo** — Detecta arquivos vazios ou apenas com comentários  
-- ✅ **Validação de permissões** — Confere se o token possui permissões adequadas  
-- ✅ **Sistema de retry** — Tentativas automáticas em caso de falha  
-- ✅ **Relatórios detalhados** — Gera JSON com todos os resultados  
-- ✅ **Logs profissionais** — Com cores e níveis de log  
+- ✅ Validação de arquivos `repositorios.json`
+- ✅ Filtragem por sigla e tipo de plataforma
+- ✅ Verificação da existência do arquivo `CODEOWNERS`
+- ✅ Criação de branch e Pull Request para adicionar `CODEOWNERS`
+- ✅ Validação de conteúdo vazio ou apenas com comentários
+- ✅ Tentativas automáticas de retry em falhas transitórias
+- ✅ Geração de relatório de execução em JSON
+- ✅ Logs com níveis de informação para auditoria
 
 ---
 
-## 🏗️ Estrutura do Projeto
+## 🧱 Estrutura do Projeto
 ```text
 github-codeowners-manager/
 ├── src/
-│   ├── index.js              # Ponto de entrada principal
+│   ├── index.js
 │   ├── config/
-│   │   └── config.js         # Configurações centralizadas
+│   │   └── config.js
+│   ├── handlers/
+│   │   └── repoHandler.js
 │   ├── services/
-│   │   ├── githubService.js  # Operações com GitHub API
-│   │   └── fileService.js    # Operações com arquivos
-│   ├── validators/
-│   │   ├── githubValidator.js # Validações do GitHub
-│   │   ├── jsonValidator.js   # Validações de JSON
-│   │   └── repoValidator.js   # Validações de repositório
+│   │   ├── fileService.js
+│   │   └── githubService.js
 │   ├── utils/
-│   │   ├── logger.js         # Logger profissional
-│   │   └── retry.js          # Sistema de retry
-│   └── handlers/
-│       └── repoHandler.js    # Lógica principal de processamento
-├── repositorios              # Local do arquivo de repositório
-├── logs                      # Local do arquivo de logs
-├── .env.example              # Exemplo de variáveis de ambiente
-├── .gitignore                # Arquivos ignorados pelo Git
-├── package.json              # Dependências e scripts
-└── README.md                 # Esta documentação
-
----
-
-## 📦 Dependências
-```json
-{
-  "chalk": "^4.1.2",
-  "dotenv": "^16.0.3"
-}
-
----
-
-## 🔧 Pré-requisitos
-Node.js >= 14.0.0
-npm >= 6.0.0
-GitHub CLI (gh)
-
-```bash
-node --version
-npm --version
-gh auth login
+│   │   ├── logger.js
+│   │   └── retry.js
+│   └── validators/
+│       ├── githubValidator.js
+│       ├── jsonValidator.js
+│       └── repoValidator.js
+├── repositorios/
+│   └── repos.json
+├── logs/
+├── .env_example
+├── .gitignore
+├── package.json
+└── README.MD
+```
 
 ---
 
 ## 🚀 Instalação
-bash
+1. Clone o repositório:
+```bash
 git clone https://github.com/---/github-codeowners-manager.git
 cd github-codeowners-manager
-
-# Instale as dependências
+```
+2. Instale as dependências:
+```bash
 npm install
-
-# Configure variáveis de ambiente
-cp .env.example .env
+```
+3. Copie o exemplo de ambiente:
+```bash
+cp .env_example .env
+```
 
 ---
 
-## 📝 Como Usar
+## ⚙️ Pré-requisitos
+- Node.js >= 14
+- npm >= 6
+- GitHub CLI (`gh`) recomendado
 
-1. Criar arquivo repositorios.json
+Verifique as versões:
+```bash
+node --version
+npm --version
+gh auth status
+```
+
+---
+
+## 📁 Configuração
+O projeto usa variáveis de ambiente definidas em `.env`.
+
+Exemplo de variáveis:
+- `GITHUB_TOKEN` — Token do GitHub com permissão de `repo`
+- `DEBUG` — `true` ou `false`
+- `MAX_RETRIES` — número de tentativas em caso de falha
+- `RETRY_DELAY` — intervalo entre tentativas em ms
+- `TIMEOUT` — timeout de requisição em ms
+- `SIGLA_VALIDA` — sigla para filtrar repositórios
+- `TIPO_PLATAFORMA_VALIDO` — tipo de plataforma a ser validado
+- `CODEOWNERS_PATH` — caminho do arquivo `CODEOWNERS`
+- `CODEOWNERS_CONTENT` — conteúdo padrão do arquivo criado
+
+O arquivo `src/config/config.js` define valores padrão e pode ser alterado conforme necessário.
+
+---
+
+## 🧭 Uso
+1. Prepare o arquivo de repositórios em `repositorios/repos.json`.
+
+Exemplo de conteúdo:
 ```json
 [
   {
@@ -101,56 +117,29 @@ cp .env.example .env
     "url_repositório_github": "https://github.com/web-project"
   }
 ]
+```
 
-2. Executar
+2. Execute a ferramenta:
 ```bash
-# Execução básica
-npm start repositorios.json
+npm start repositorios/repos.json
+```
 
-# Com relatório personalizado
-npm start repositorios.json meu-relatorio.json
+3. Gerar relatório com saída personalizada:
+```bash
+npm start repositorios/repos.json report.json
+```
 
-# Modo debug
-DEBUG=true npm start repositorios.json
-
-
-## ⚙️ Configuração Avançada
-Variáveis de Ambiente
-Variável	Descrição	Obrigatório
-GITHUB_TOKEN	Token	✅ Sim
-DEBUG	true/false	❌ Não
-
-Arquivo src/config/config.js
-
-```js
-module.exports = {
-  GITHUB: {
-    TOKEN: process.env.GITHUB_TOKEN || '',
-    TIMEOUT: 30000,
-    MAX_RETRIES: 3,
-    RETRY_DELAY: 2000
-  },
-  VALIDATION: {
-    SIGLA_VALIDA: 'mov',
-    TIPO_PLATAFORMA_VALIDO: 'Mobile'
-  },
-  PR: {
-    BRANCH_NAME: `codeowners-${Date.now()}`,
-    COMMIT_MESSAGE: 'Adiciona arquivo CODEOWNERS',
-    TITLE: 'Adiciona arquivo CODEOWNERS',
-    BODY: 'Este PR adiciona automaticamente o arquivo CODEOWNERS ao repositório.'
-  },
-  FILE: {
-    CODEOWNERS_CONTENT: `#Arquivo CODEOWNER CRIADO COM SUCESSO\n#PROPRIETARIOS DO DIRETORIO: `,
-    CODEOWNERS_PATH: '.github/CODEOWNERS'
-  }
-};
+4. Executar em modo debug:
+```bash
+DEBUG=true npm start repositorios/repos.json
+```
 
 ---
 
 ## 📊 Relatório de Saída
-Exemplo de report.json:
+A ferramenta pode gerar um relatório JSON com resumo da execução.
 
+Exemplo:
 ```json
 {
   "timestamp": "2026-07-09T10:30:00.000Z",
@@ -161,36 +150,30 @@ Exemplo de report.json:
     "skipped": 1
   }
 }
+```
 
 ---
 
-## 🔍 Validações Realizadas
-GitHub CLI — Verifica se gh está instalado
-
-Autenticação — Testa token/CLI
-
-Permissões — Confere contents:write, pull_requests:write, metadata:read
-
-Arquivo JSON — Estrutura, sintaxe e campos obrigatórios
-
-URL GitHub — Formato válido
-
-Critérios — Sigla e tipo de plataforma
-
-Repositório — Existência no GitHub
-
-CODEOWNERS — Existência, vazio ou apenas comentários
+## 🔍 Validações realizadas
+- Verificação de instalação do GitHub CLI
+- Autenticação via token ou CLI
+- Permissões do token para conteúdos e Pull Requests
+- Validação do formato JSON de entrada
+- Validação de URL do GitHub
+- Filtragem por sigla e tipo de plataforma
+- Existência do repositório no GitHub
+- Existência e conteúdo do arquivo `CODEOWNERS`
 
 ---
 
-## 🧪 Testes
-
+## 🧪 Scripts úteis
 ```bash
-# Executar testes
-npm test
+npm start            # Executa o projeto
+npm run dev          # Executa em modo watch
+npm test             # Executa testes com Jest
+```
 
-# Modo watch
-npm test -- --watch
+---
 
-# Cobertura
-npm test -- --coverage
+## 📄 Licença
+Projeto sem licença específica definida.
