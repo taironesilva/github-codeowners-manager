@@ -8,11 +8,11 @@ Ele valida arquivos de entrada, verifica repositórios, identifica necessidade d
 ---
 
 ## 🎯 Principais Funcionalidades
-- ✅ Validação de arquivos `repositorios.json`
-- ✅ Filtragem por sigla e tipo de plataforma
+- ✅ Validação de arquivos a serem processados - `repositorios.json`
+- ✅ Filtragem por sigla e tipo de plataforma - `repositorios.json`
 - ✅ Verificação da existência do arquivo `CODEOWNERS`
 - ✅ Criação de branch e Pull Request para adicionar `CODEOWNERS`
-- ✅ Validação de conteúdo vazio ou apenas com comentários
+- ✅ Validação de conteúdo vazio ou apenas com comentários do `CODEOWNERS`
 - ✅ Tentativas automáticas de retry em falhas transitórias
 - ✅ Geração de relatório de execução em JSON
 - ✅ Logs com níveis de informação para auditoria
