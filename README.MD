@@ -46,24 +46,31 @@ github-codeowners-manager/
 ├── .gitignore                # Arquivos ignorados pelo Git
 ├── package.json              # Dependências e scripts
 └── README.md                 # Esta documentação
-📦 Dependências
-json
+
+---
+
+## 📦 Dependências
+```json
 {
   "chalk": "^4.1.2",
   "dotenv": "^16.0.3"
 }
-🔧 Pré-requisitos
+
+---
+
+## 🔧 Pré-requisitos
 Node.js >= 14.0.0
-
 npm >= 6.0.0
-
 GitHub CLI (gh)
 
-bash
+```bash
 node --version
 npm --version
 gh auth login
-🚀 Instalação
+
+---
+
+## 🚀 Instalação
 bash
 git clone https://github.com/---/github-codeowners-manager.git
 cd github-codeowners-manager
@@ -73,9 +80,13 @@ npm install
 
 # Configure variáveis de ambiente
 cp .env.example .env
-📝 Como Usar
+
+---
+
+## 📝 Como Usar
+
 1. Criar arquivo repositorios.json
-json
+```json
 [
   {
     "Nome do projeto": "mov-xpto",
@@ -90,8 +101,9 @@ json
     "url_repositório_github": "https://github.com/web-project"
   }
 ]
+
 2. Executar
-bash
+```bash
 # Execução básica
 npm start repositorios.json
 
@@ -100,15 +112,17 @@ npm start repositorios.json meu-relatorio.json
 
 # Modo debug
 DEBUG=true npm start repositorios.json
-⚙️ Configuração Avançada
+
+
+## ⚙️ Configuração Avançada
 Variáveis de Ambiente
 Variável	Descrição	Obrigatório
 GITHUB_TOKEN	Token	✅ Sim
 DEBUG	true/false	❌ Não
 
-
 Arquivo src/config/config.js
-js
+
+```js
 module.exports = {
   GITHUB: {
     TOKEN: process.env.GITHUB_TOKEN || '',
@@ -131,10 +145,13 @@ module.exports = {
     CODEOWNERS_PATH: '.github/CODEOWNERS'
   }
 };
-📊 Relatório de Saída
+
+---
+
+## 📊 Relatório de Saída
 Exemplo de report.json:
 
-json
+```json
 {
   "timestamp": "2026-07-09T10:30:00.000Z",
   "summary": {
@@ -144,7 +161,10 @@ json
     "skipped": 1
   }
 }
-🔍 Validações Realizadas
+
+---
+
+## 🔍 Validações Realizadas
 GitHub CLI — Verifica se gh está instalado
 
 Autenticação — Testa token/CLI
@@ -161,8 +181,11 @@ Repositório — Existência no GitHub
 
 CODEOWNERS — Existência, vazio ou apenas comentários
 
-🧪 Testes
-bash
+---
+
+## 🧪 Testes
+
+```bash
 # Executar testes
 npm test
 
