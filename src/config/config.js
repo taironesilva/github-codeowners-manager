@@ -27,9 +27,7 @@ module.exports = {
 
   // Configurações de arquivo
   FILE: {
-    CODEOWNERS_CONTENT: process.env.CODEOWNERS_CONTENT ||`#Arquivo CODEOWNER CRIADO COM SUCESSO
-                                                          #PROPRIETARIOS DO DIRETORIO: 
-                                                          @tairone_codeowner_exemplo`,
+    CODEOWNERS_CONTENT: process.env.CODEOWNERS_CONTENT || '#Arquivo CODEOWNER CRIADO COM SUCESSO\n#PROPRIETARIOS DO DIRETORIO:\n@tairone_codeowner_exemplo',
     CODEOWNERS_PATH: process.env.CODEOWNERS_PATH || '.github/CODEOWNERS'
   }
 };
