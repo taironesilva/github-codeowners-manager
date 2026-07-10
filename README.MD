@@ -1,20 +1,28 @@
+Aqui está o arquivo completo já formatado:
+
+markdown
+# 🚀 GitHub CODEOWNERS Manager
+
 ## 📋 Sobre o Projeto
+O **GitHub CODEOWNERS Manager** é uma ferramenta em **Node.js** que automatiza a gestão de arquivos `CODEOWNERS` em repositórios GitHub.  
+Ele valida, verifica e cria automaticamente arquivos via Pull Requests, garantindo conformidade com as políticas de propriedade de código.
 
-O **GitHub CODEOWNERS Manager** é uma ferramenta profissional em Node.js que automatiza a gestão de arquivos CODEOWNERS em repositórios GitHub. Ela valida, verifica e cria automaticamente arquivos CODEOWNERS via Pull Requests, garantindo que todos os repositórios estejam em conformidade com as políticas de propriedade de código.
+---
 
-### 🎯 Principais Funcionalidades
+## 🎯 Principais Funcionalidades
+- ✅ **Validação de repositórios** — Filtra por sigla e tipo de plataforma  
+- ✅ **Verificação automática** — Checa existência e conteúdo do CODEOWNERS  
+- ✅ **Criação inteligente** — Cria CODEOWNERS via PR quando necessário  
+- ✅ **Validação de conteúdo** — Detecta arquivos vazios ou apenas com comentários  
+- ✅ **Validação de permissões** — Confere se o token possui permissões adequadas  
+- ✅ **Sistema de retry** — Tentativas automáticas em caso de falha  
+- ✅ **Relatórios detalhados** — Gera JSON com todos os resultados  
+- ✅ **Logs profissionais** — Com cores e níveis de log  
 
-- ✅ **Validação de repositórios** - Filtra por sigla e tipo de plataforma
-- ✅ **Verificação automática** - Checa existência e conteúdo do CODEOWNERS
-- ✅ **Criação inteligente** - Cria CODEOWNERS via PR quando necessário
-- ✅ **Validação de conteúdo** - Detecta arquivos vazios ou com apenas comentários
-- ✅ **Validação de permissões** - Verifica se o token tem permissões adequadas
-- ✅ **Sistema de retry** - Tentativas automáticas em caso de falha
-- ✅ **Relatórios detalhados** - Gera JSON com todos os resultados
-- ✅ **Logs profissionais** - Com cores e níveis de log
+---
 
 ## 🏗️ Estrutura do Projeto
-
+```text
 github-codeowners-manager/
 ├── src/
 │   ├── index.js              # Ponto de entrada principal
@@ -32,57 +40,41 @@ github-codeowners-manager/
 │   │   └── retry.js          # Sistema de retry
 │   └── handlers/
 │       └── repoHandler.js    # Lógica principal de processamento
-├── repositorios              # Local do arquivo de repositorio
+├── repositorios              # Local do arquivo de repositório
 ├── logs                      # Local do arquivo de logs
 ├── .env.example              # Exemplo de variáveis de ambiente
 ├── .gitignore                # Arquivos ignorados pelo Git
 ├── package.json              # Dependências e scripts
 └── README.md                 # Esta documentação
-
-
-## 📦 Dependências
-
-```json
+📦 Dependências
+json
 {
-  "chalk": "^4.1.2",        // Cores no terminal
-  "dotenv": "^16.0.3"       // Variáveis de ambiente
+  "chalk": "^4.1.2",
+  "dotenv": "^16.0.3"
 }
-
-
 🔧 Pré-requisitos
-1. Node.js
-bash
-node --version  # >= 14.0.0
-npm --version   # >= 6.0.0
+Node.js >= 14.0.0
+
+npm >= 6.0.0
+
 GitHub CLI (gh)
 
-
-2. Autenticação GitHub
 bash
-# Login no GitHub CLI
+node --version
+npm --version
 gh auth login
-
-# Ou defina token como variável de ambiente
-export GITHUB_TOKEN="seu-token-aqui"
-
-
 🚀 Instalação
-
+bash
 git clone https://github.com/---/github-codeowners-manager.git
 cd github-codeowners-manager
 
-#Instale as dependências
+# Instale as dependências
 npm install
 
-#Configure as variáveis de ambiente
+# Configure variáveis de ambiente
 cp .env.example .env
-# Edite o arquivo .env com seu token
-
-
 📝 Como Usar
-1. Preparar o Arquivo JSON
-Crie um arquivo repositorios.json com a lista de repositórios:
-
+1. Criar arquivo repositorios.json
 json
 [
   {
@@ -92,21 +84,14 @@ json
     "url_repositório_github": "https://github.com/mov-xpto"
   },
   {
-    "Nome do projeto": "mov-xpto2",
-    "Sigla": "mov",
-    "Tipo de Plataforma": "Mobile",
-    "url_repositório_github": "https://github.com/mov-xpto2"
-  },
-  {
     "Nome do projeto": "web-project",
     "Sigla": "web",
     "Tipo de Plataforma": "Web",
     "url_repositório_github": "https://github.com/web-project"
   }
 ]
-
 2. Executar
-
+bash
 # Execução básica
 npm start repositorios.json
 
@@ -115,75 +100,25 @@ npm start repositorios.json meu-relatorio.json
 
 # Modo debug
 DEBUG=true npm start repositorios.json
-
-# Com variável de ambiente
-GITHUB_TOKEN="seu-token" npm start repositorios.json
-
-3. Exemplo de Saída
-🚀 GITHUB CODEOWNERS MANAGER
-==================================================
-ℹ️  Inicializando aplicação...
-✅ GitHub CLI encontrado: gh version 2.40.0
-✅ Autenticação GitHub bem-sucedida (Usuário: seu-usuario)
-✅ Token possui todas as permissões necessárias
-✅ Aplicação inicializada com sucesso
-
---- Carregando repositórios
-✅ 3 repositórios carregados
-
-📊 PROCESSANDO REPOSITÓRIOS
-==================================================
-ℹ️  Total: 3
-ℹ️  Filtros: Sigla="mov", Tipo="Mobile"
-
---- Processando: mov-xpto
-   📦 Repositório: mov-xpto
-   🔎 Verificando CODEOWNERS...
-   ✅ CODEOWNER EXISTENTE
-
---- Processando: mov-xpto2
-   📦 Repositório: mov-xpto2
-   🔎 Verificando CODEOWNERS...
-   ⚠️  CODEOWNER INEXISTENTE - Criando...
-   ✅ PR criado com sucesso: https://github.com/mov-xpto2/pull/1
-
---- Processando: web-project
-   ⚠️  Repositório ignorado - não atende aos critérios de validação
-
-📈 RESUMO FINAL
-==================================================
-✅ Processados com sucesso: 2
-⏭️  Ignorados (critérios): 1
-❌ Falhas: 0
-📝 Total: 3
-
---- Gerando relatório
-✅ Relatório salvo em: report.json
-
-✅ PROCESSAMENTO CONCLUÍDO
-==================================================
-
-
 ⚙️ Configuração Avançada
-
 Variáveis de Ambiente
+Variável	Descrição	Obrigatório
+GITHUB_TOKEN	Token	✅ Sim
+DEBUG	true/false	❌ Não
 
-|  Variável	  |  Descrição  | Obrigatório|
-|GITHUB_TOKEN	|    Token    |	  ✅ Sim   |
-|Modo debug   |(true/false) |	  ❌ Não   |
 
-⚙️ Configurações no src/config/config.js
-
+Arquivo src/config/config.js
+js
 module.exports = {
   GITHUB: {
     TOKEN: process.env.GITHUB_TOKEN || '',
-    TIMEOUT: 30000,           // Timeout em ms
-    MAX_RETRIES: 3,           // Máximo de tentativas
-    RETRY_DELAY: 2000         // Delay entre tentativas em ms
+    TIMEOUT: 30000,
+    MAX_RETRIES: 3,
+    RETRY_DELAY: 2000
   },
   VALIDATION: {
-    SIGLA_VALIDA: 'mov',      // Sigla para validação
-    TIPO_PLATAFORMA_VALIDO: 'Mobile'  // Tipo para validação
+    SIGLA_VALIDA: 'mov',
+    TIPO_PLATAFORMA_VALIDO: 'Mobile'
   },
   PR: {
     BRANCH_NAME: `codeowners-${Date.now()}`,
@@ -196,10 +131,10 @@ module.exports = {
     CODEOWNERS_PATH: '.github/CODEOWNERS'
   }
 };
-
-
 📊 Relatório de Saída
-O relatório gerado (report.json) contém:
+Exemplo de report.json:
+
+json
 {
   "timestamp": "2026-07-09T10:30:00.000Z",
   "summary": {
@@ -207,81 +142,32 @@ O relatório gerado (report.json) contém:
     "success": 8,
     "failed": 1,
     "skipped": 1
-  },
-  "results": [
-    {
-      "name": "mov-xpto",
-      "status": "success",
-      "action": "exists",
-      "message": "CODEOWNER EXISTENTE",
-      "repo": "mov-xpto",
-      "details": {
-        "lines": 5,
-        "content": "# CODEOWNERS\n* @team/owners"
-      }
-    },
-    {
-      "name": "mov-xpto2",
-      "status": "success",
-      "action": "created",
-      "message": "CODEOWNER CRIADO VIA PR",
-      "repo": "mov-xpto2",
-      "prUrl": "https://github.com/mov-xpto2/pull/1"
-    },
-    {
-      "name": "web-project",
-      "status": "skipped",
-      "reason": "Não atende aos critérios de validação",
-      "repo": "web-project"
-    }
-  ]
+  }
 }
-
 🔍 Validações Realizadas
-1. Validação do GitHub CLI ✅
-Verifica se a ferramenta gh está instalada e acessível.
+GitHub CLI — Verifica se gh está instalado
 
-2. Validação de Autenticação ✅
-Testa se o token/autenticação está funcionando corretamente.
+Autenticação — Testa token/CLI
 
-3. Validação de Permissões do Token ✅
-Verifica se o token tem as permissões necessárias:
+Permissões — Confere contents:write, pull_requests:write, metadata:read
 
-contents:write - Para criar/atualizar arquivos
+Arquivo JSON — Estrutura, sintaxe e campos obrigatórios
 
-pull_requests:write - Para criar PRs
+URL GitHub — Formato válido
 
-metadata:read - Para ler informações do repo
+Critérios — Sigla e tipo de plataforma
 
-4. Validação do Arquivo JSON ✅
-- Existência do arquivo
-- Sintaxe JSON válida
-- Estrutura correta (array)
-- Campos obrigatórios presentes
-- Nomes duplicados
+Repositório — Existência no GitHub
 
-5. Validação de URL do GitHub ✅
-- Verifica se a URL está no formato correto.
-
-6. Validação de Critérios ✅
-- Sigla corresponde ao valor configurado
-- Tipo de plataforma corresponde ao valor configurado
-
-7. Validação de Repositório Existente ✅
-- Confirma se o repositório realmente existe no GitHub.
-
-8. Validação do CODEOWNERS ✅
-- Verifica se o arquivo existe
-- Verifica se o arquivo está vazio
-- Verifica se contém apenas comentários
+CODEOWNERS — Existência, vazio ou apenas comentários
 
 🧪 Testes
-
+bash
 # Executar testes
 npm test
 
 # Modo watch
 npm test -- --watch
 
-# Cobertura de testes
+# Cobertura
 npm test -- --coverage
