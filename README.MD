@@ -17,27 +17,28 @@ O **GitHub CODEOWNERS Manager** é uma ferramenta profissional em Node.js que au
 
 github-codeowners-manager/
 ├── src/
-│   ├── index.js                 # Ponto de entrada principal
+│   ├── index.js              # Ponto de entrada principal
 │   ├── config/
-│   │   └── config.js           # Configurações centralizadas
+│   │   └── config.js         # Configurações centralizadas
 │   ├── services/
-│   │   ├── githubService.js    # Operações com GitHub API
-│   │   └── fileService.js      # Operações com arquivos
+│   │   ├── githubService.js  # Operações com GitHub API
+│   │   └── fileService.js    # Operações com arquivos
 │   ├── validators/
-│   │   ├── githubValidator.js  # Validações do GitHub
-│   │   ├── jsonValidator.js    # Validações de JSON
-│   │   └── repoValidator.js    # Validações de repositório
+│   │   ├── githubValidator.js # Validações do GitHub
+│   │   ├── jsonValidator.js   # Validações de JSON
+│   │   └── repoValidator.js   # Validações de repositório
 │   ├── utils/
-│   │   ├── logger.js           # Logger profissional
-│   │   └── retry.js            # Sistema de retry
+│   │   ├── logger.js         # Logger profissional
+│   │   └── retry.js          # Sistema de retry
 │   └── handlers/
-│       └── repoHandler.js      # Lógica principal de processamento
-├── repositorios                 # Local do arquivo de repositorio
-├── logs                         # Local do arquivo de logs
-├── .env.example                 # Exemplo de variáveis de ambiente
-├── .gitignore                  # Arquivos ignorados pelo Git
-├── package.json                # Dependências e scripts
-└── README.md                   # Esta documentação
+│       └── repoHandler.js    # Lógica principal de processamento
+├── repositorios              # Local do arquivo de repositorio
+├── logs                      # Local do arquivo de logs
+├── .env.example              # Exemplo de variáveis de ambiente
+├── .gitignore                # Arquivos ignorados pelo Git
+├── package.json              # Dependências e scripts
+└── README.md                 # Esta documentação
+
 
 ## 📦 Dependências
 
