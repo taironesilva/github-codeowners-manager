@@ -4,9 +4,9 @@ const Logger = require('../utils/logger');
 
 class RepoValidator {
   constructor(config) {
-    // 🔧 Usa as propriedades diretamente do config (nível raiz)
-    this.siglaValida = config.SIGLA_VALIDA || 'mov';
-    this.tipoPlataformaValido = config.TIPO_PLATAFORMA_VALIDO || 'Mobile';
+    // 🔧 Usa as propriedades da seção VALIDATION do config
+    this.siglaValida = config.VALIDATION.SIGLA_VALIDA || 'mov';
+    this.tipoPlataformaValido = config.VALIDATION.TIPO_PLATAFORMA_VALIDO || 'Mobile';
   }
 
   /**

@@ -67,7 +67,7 @@ class Application {
   async processRepositories(repos) {
     Logger.title('📊 PROCESSANDO REPOSITÓRIOS');
     Logger.info(`Total: ${repos.length}`);
-    Logger.info(`Filtros: Sigla="${this.config.SIGLA_VALIDA}", Tipo="${this.config.TIPO_PLATAFORMA_VALIDO}"`);
+    Logger.info(`Filtros: Sigla="${this.config.VALIDATION.SIGLA_VALIDA}", Tipo="${this.config.VALIDATION.TIPO_PLATAFORMA_VALIDO}"`);
 
     let processed = 0;
     let skipped = 0;
