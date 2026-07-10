@@ -69,7 +69,7 @@ cp .env_example .env
 ## ⚙️ Pré-requisitos
 - Node.js >= 14
 - npm >= 6
-- GitHub CLI (`gh`) recomendado
+- GitHub CLI (`gh`)
 
 Verifique as versões:
 ```bash
@@ -99,7 +99,7 @@ O arquivo `src/config/config.js` define valores padrão e pode ser alterado conf
 ---
 
 ## 🧭 Uso
-1. Prepare o arquivo de repositórios em `repositorios/repos.json`.
+1. Forneça o arquivo de repositórios serem verificados em `repositorios/repos.json`.
 
 Exemplo de conteúdo:
 ```json
@@ -170,10 +170,4 @@ Exemplo:
 ```bash
 npm start            # Executa o projeto
 npm run dev          # Executa em modo watch
-npm test             # Executa testes com Jest
 ```
-
----
-
-## 📄 Licença
-Projeto sem licença específica definida.
