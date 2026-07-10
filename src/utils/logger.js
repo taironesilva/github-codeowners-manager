@@ -1,42 +1,39 @@
-const chalk = require('chalk');
-
 class Logger {
   static info(message) {
-    console.log(chalk.blue('ℹ️  ') + message);
+    console.log('ℹ️  ' + message);
   }
 
   static success(message) {
-    console.log(chalk.green('✅ ') + message);
+    console.log('✅ ' + message);
   }
 
   static warning(message) {
-    console.log(chalk.yellow('⚠️  ') + message);
+    console.log('⚠️  ' + message);
   }
 
   static error(message) {
-    console.log(chalk.red('❌ ') + message);
+    console.log('❌ ' + message);
   }
 
   static debug(message) {
     if (process.env.DEBUG) {
-      console.log(chalk.gray('🔍 ') + message);
+      console.log('🔍 ' + message);
     }
   }
 
   static title(message) {
-    console.log(chalk.cyan.bold('\n' + '='.repeat(50)));
-    console.log(chalk.cyan.bold(message));
-    console.log(chalk.cyan.bold('='.repeat(50)));
+    console.log('\n' + '='.repeat(50));
+    console.log(message);
+    console.log('='.repeat(50));
   }
 
   static section(message) {
-    console.log(chalk.cyan('\n--- ' + message));
+    console.log('\n--- ' + message);
   }
 
   static result(message, isSuccess = true) {
     const icon = isSuccess ? '✅' : '❌';
-    const color = isSuccess ? chalk.green : chalk.red;
-    console.log(color(`   ${icon} ${message}`));
+    console.log(`   ${icon} ${message}`);
   }
 }
 
