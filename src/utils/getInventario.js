@@ -1,5 +1,4 @@
 const https = require('https');
-const http = require('http');
 const path = require('path');
 require('dotenv').config();
 
@@ -62,14 +61,15 @@ class GetInventario {
   }
 
   /**
-   * Faz uma requisição HTTP GET com token de autenticação
+   * Faz uma requisição HTTPS GET com token de autenticação
    */
   static makeRequest(urlString, token) {
     return new Promise((resolve, reject) => {
       try {
         const url = new URL(urlString);
-        const isHttps = url.protocol === 'https:';
-        const client = isHttps ? https : http;
+        if (url.protocol !== 'https:') {
+          throw new Error('A URL deve usar o protocolo https://');
+        }
 
         const options = {
           method: 'GET',
@@ -77,10 +77,11 @@ class GetInventario {
             'Authorization': `Bearer ${token}`,
             'Accept': 'application/json',
             'User-Agent': 'github-codeowners'
-          }
+          },
+          agent: new https.Agent({ rejectUnauthorized: false })
         };
 
-        const request = client.get(urlString, options, (response) => {
+        const request = https.get(urlString, options, (response) => {
           let responseData = '';
 
           response.on('data', (chunk) => {
