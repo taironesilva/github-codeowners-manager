@@ -39,12 +39,21 @@ class GetInventario {
         validation.warnings.forEach(warn => Logger.warning(warn));
       }
 
-      // Salvar arquivo
-      const outputPath = path.resolve(process.cwd(), 'repositorios', 'getInventario.json');
+      // Normalizar o conteúdo para o formato usado pelos repositórios
+      const normalizedData = GetInventarioValidator.normalizeInventoryToRepos(data);
+
+      // Salvar arquivo do inventário original
+      const outputDir = path.resolve(process.cwd(), 'repositorios');
+      const outputPath = path.join(outputDir, 'repos_inventario.json');
       await FileService.writeJSON(outputPath, data);
 
+      // Salvar arquivo normalizado para o fluxo de repositórios
+      const githubReposPath = path.join(outputDir, 'repos_github.json');
+      await FileService.writeJSON(githubReposPath, normalizedData);
+
       Logger.success(`Arquivo de inventário salvo com sucesso em: ${outputPath}`);
-      return data;
+      Logger.success(`Arquivo normalizado salvo com sucesso em: ${githubReposPath}`);
+      return { original: data, normalized: normalizedData };
 
     } catch (error) {
       Logger.error(`Erro ao buscar e salvar inventário: ${error.message}`);
@@ -67,43 +76,39 @@ class GetInventario {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Accept': 'application/json',
-            'User-Agent': 'github-codeowners-manager/1.0.0'
+            'User-Agent': 'github-codeowners'
           }
         };
 
         const request = client.get(urlString, options, (response) => {
           let responseData = '';
 
-          // Validar status HTTP
-          const statusValidation = GetInventarioValidator.validateStatus(response.statusCode);
-          if (!statusValidation.valid) {
-            reject(new Error(statusValidation.error));
-            return;
-          }
-
-          // Coletar dados da resposta
           response.on('data', (chunk) => {
             responseData += chunk;
           });
 
-          // Processar resposta completa
           response.on('end', () => {
             try {
+              // Validar status HTTP
+              const statusValidation = GetInventarioValidator.validateStatus(response.statusCode);
+              if (!statusValidation.valid) {
+                reject(new Error(statusValidation.error));
+                return;
+              }
+
               const jsonData = JSON.parse(responseData);
               resolve(jsonData);
             } catch (error) {
-              reject(new Error(`Erro ao fazer parse da resposta JSON: ${error.message}`));
+              reject(new Error(`Erro ao processar a resposta da API: ${error.message}`));
             }
           });
         });
 
-        // Tratar erros de conexão
         request.on('error', (error) => {
           reject(new Error(`Erro na requisição HTTP: ${error.message}`));
         });
 
-        // Timeout
-        request.setTimeout(process.env.TIMEOUT || 30000, () => {
+        request.on('timeout', () => {
           request.destroy();
           reject(new Error('Timeout na requisição HTTP'));
         });
@@ -116,3 +121,14 @@ class GetInventario {
 }
 
 module.exports = GetInventario;
+
+if (require.main === module) {
+  GetInventario.fetchAndSave()
+    .then(() => {
+      Logger.success('Fluxo de inventário concluído com sucesso');
+    })
+    .catch((error) => {
+      Logger.error(`Falha no fluxo de inventário: ${error.message}`);
+      process.exit(1);
+    });
+}

@@ -51,14 +51,74 @@ class GetInventarioValidator {
       return errors;
     }
 
-    // Validar campos esperados (adicione conforme necessário)
-    // Exemplos de campos que você pode esperar:
-    // - nomeComponente
-    // - sigla
-    // - urlGit
-    // etc
+    const requiredFields = ['nomeComponente', 'sigla', 'urlGit'];
+    requiredFields.forEach((field) => {
+      if (!item[field] || String(item[field]).trim() === '') {
+        errors.push(`Item ${index} está sem o campo obrigatório: ${field}`);
+      }
+    });
+
+    if (item.urlGit && !this.isValidUrl(item.urlGit)) {
+      errors.push(`Item ${index} possui urlGit inválida: ${item.urlGit}`);
+    }
+
+    if (item.sigla && !/^[a-zA-Z0-9._-]+$/.test(item.sigla)) {
+      errors.push(`Item ${index} possui sigla com formato inválido: ${item.sigla}`);
+    }
+
+    if (!item.tipoPlataformaAplicativo || typeof item.tipoPlataformaAplicativo !== 'object') {
+      errors.push(`Item ${index} está sem tipoPlataformaAplicativo`);
+    } else if (!item.tipoPlataformaAplicativo.nomeTipoPlataformaAplicativo || String(item.tipoPlataformaAplicativo.nomeTipoPlataformaAplicativo).trim() === '') {
+      errors.push(`Item ${index} está sem nomeTipoPlataformaAplicativo`);
+    }
 
     return errors;
+  }
+
+  /**
+   * Converte a estrutura do inventário para o formato usado pelo fluxo de repositórios.
+   */
+  static normalizeInventoryToRepos(data) {
+    if (!Array.isArray(data)) {
+      return [];
+    }
+
+    return data.map((item) => ({
+      'Nome do projeto': item.nomeComponente || '',
+      Sigla: item.sigla || '',
+      'Tipo de Plataforma': this.normalizePlatformType(item?.tipoPlataformaAplicativo?.nomeTipoPlataformaAplicativo),
+      'url_repositório_github': item.urlGit || ''
+    }));
+  }
+
+  static normalizePlatformType(value) {
+    if (!value) {
+      return '';
+    }
+
+    const normalized = String(value).trim().toLowerCase();
+    if (normalized.includes('mobile')) {
+      return 'Mobile';
+    }
+
+    if (normalized.includes('web')) {
+      return 'Web';
+    }
+
+    return value;
+  }
+
+  static isValidUrl(value) {
+    if (!value) {
+      return false;
+    }
+
+    try {
+      const parsed = new URL(value);
+      return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+    } catch (error) {
+      return false;
+    }
   }
 
   /**

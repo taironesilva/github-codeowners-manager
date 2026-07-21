@@ -1,0 +1,101 @@
+[
+{
+"id": 1,
+"dataInclusao": "01/08/2024 00:00:00",
+"situacao": "ATIVO",
+"nomeComponente": "mov-testeA-movapp",
+"equipeResponsavel": "app",
+"linhaNegocio": null,
+"sigla": "mov",
+"dataInatividade": null,
+"infraBuild": "WEB",
+"tipoPlataformaAplicativo": {
+"id": 1,
+"nomeTipoPlataformaAplicativo": "plataforma mobile",
+"plataformaAplicativoAtiva": "S"
+},
+"esteiraConstrucao": "GITHUB_ACTIONS",
+"urlGit": "https://github.com/mov-testeA-movapp",
+"tipoGerenciadorPacote": {
+"id": 1,
+"nomeGerenciadorPacote": "maven"
+},
+"responsaveis": [
+{
+"id": {
+"cdCpnt": 1,
+"cdTipRsp": 1
+},
+"txDcrRspCpnt": "DtxDcrRspCpnt",
+"tipoResponsavel": {
+"id": 1,
+"txTipRsp": "txTipRsp"
+}
+}
+],
+"equipe": {
+"id": 1,
+"grupoOrganizacional": "grupoOrganizacional",
+"siglaSistema": "siglaSistema",
+"codigoPapelDeAcesso": "codigoPapelDeAcesso",
+"codigoAreaDeTrabalho": 1,
+"nomeEquipe": "nomeEquipe",
+"indicadorEquipeAtiva": "S"
+}
+},
+{
+"id": 2,
+"dataInclusao": "19/11/2025 00:00:00",
+"situacao": "ATIVO",
+"nomeComponente": "mov-testeB-movapp",
+"equipeResponsavel": "app testeB",
+"linhaNegocio": "llinhaNegocio testeB",
+"sigla": "mov",
+"dataInatividade": null,
+"infraBuild": "CLOUD",
+"tipoPlataformaAplicativo": {
+"id": 2,
+"nomeTipoPlataformaAplicativo": "plataforma mobile módulo",
+"plataformaAplicativoAtiva": "S"
+},
+"esteiraConstrucao": "GITHUB_ACTIONS",
+"urlGit": "https://github.com/mov-testeB-movapp",
+"tipoGerenciadorPacote": {
+"id": 2,
+"nomeGerenciadorPacote": "npm"
+},
+"responsaveis": [
+{
+"id": {
+"cdCpnt": 2,
+"cdTipRsp": 2
+},
+"txDcrRspCpnt": "2",
+"tipoResponsavel": {
+"id": 2,
+"txTipRsp": "cdEquipeBM"
+}
+},
+{
+"id": {
+"cdCpnt": 2,
+"cdTipRsp": 2
+},
+"txDcrRspCpnt": "2",
+"tipoResponsavel": {
+"id": 2,
+"txTipRsp": "testeB"
+}
+}
+],
+"equipe": {
+"id": 2,
+"grupoOrganizacional": "testeB",
+"siglaSistema": "testeB",
+"codigoPapelDeAcesso": "testeB",
+"codigoAreaDeTrabalho": 2,
+"nomeEquipe": "testeB",
+"indicadorEquipeAtiva": "S"
+}
+}
+]
